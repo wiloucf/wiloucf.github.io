@@ -77,8 +77,23 @@ function tick(){
   $("#countdown").innerHTML = [[d,"days"],[h,"hours"],[m,"minutes"]].map(([v,l]) => `<div><b>${String(v).padStart(2,"0")}</b><span>${l}</span></div>`).join("")
     + `<div><b style="color:var(--muted)">·</b><span>to the summit</span></div>`;
 }
+// Pages an officer has switched off in Site settings
+const HIDDEN = new Set();
+function applyPageSwitches(st){
+  HIDDEN.clear();
+  for (const p of ["gallery","about","summit","outreach"]) if (st["show_" + p] === false) HIDDEN.add(p);
+  // Hide every link to a switched-off page (nav, buttons); "#register" belongs to the summit page
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    let t = a.getAttribute("href").slice(1);
+    if (t === "register") t = "summit";
+    a.hidden = HIDDEN.has(t);
+  });
+  route();
+}
+
 function applySettings(st){
   st = st || {};
+  applyPageSwitches(st);
   if (st.contact_email) document.querySelectorAll(".js-email").forEach(el => el.textContent = st.contact_email);
   const soc = [["Instagram", st.instagram_url], ["LinkedIn", st.linkedin_url]].filter(([,u]) => u);
   $("#socials").innerHTML = soc.map(([n,u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${n}</a>`).join(" · ");
@@ -131,8 +146,8 @@ function show(p, top){
 }
 function route(){
   const h = location.hash.slice(1);
-  if (h === "register"){ show("summit"); requestAnimationFrame(() => document.getElementById("register").scrollIntoView()); return; }
-  show(PAGES.includes(h) ? h : "home", true);
+  if (h === "register" && !HIDDEN.has("summit")){ show("summit"); requestAnimationFrame(() => document.getElementById("register").scrollIntoView()); return; }
+  show(PAGES.includes(h) && !HIDDEN.has(h) ? h : "home", true);
 }
 addEventListener("hashchange", route);
 route();
