@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Fall general body meeting & pizza",
+    "date": "2026-11-13",
+    "time": "5:30–7:00 pm",
+    "location": "CREOL, Room [ ]",
+    "category": "Social",
+    "description": "Meet the board, hear the spring plans, and sign up for committees."
+  },
+  {
+    "title": "Fellowship application workshop",
+    "date": "2026-11-20",
+    "time": "12:00–1:00 pm",
+    "location": "CREOL, Room [ ]",
+    "category": "Professional",
+    "description": "Tips on NSF GRFP and DOE SCGSR essays, with past awardees."
+  },
+  {
+    "title": "Holiday optics demo night",
+    "date": "2026-12-04",
+    "time": "6:00–8:00 pm",
+    "location": "[Partner school / library]",
+    "category": "Outreach",
+    "description": "Volunteers run light and color demos for families. Training at 5:30 pm."
+  },
+  {
+    "title": "Spring kickoff social",
+    "date": "2027-01-22",
+    "time": "5:00–7:00 pm",
+    "location": "[Location]",
+    "category": "Social",
+    "description": "Start the semester with food, games and new member welcomes."
+  },
+  {
+    "title": "WiLO Summit 2027: Breaking the Mold",
+    "date": "2027-03-05",
+    "time": "10:00 am–5:30 pm",
+    "location": "CREOL 102/103",
+    "category": "Summit",
+    "description": "Our biggest event of the year, celebrating International Women’s Day with six speakers and a closing panel."
+  }
+]

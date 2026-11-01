@@ -1,0 +1,50 @@
+[
+  {
+    "role": "President",
+    "name": "[Name]",
+    "bio": "[Program · year]. [One line about research or interests.]",
+    "photo": ""
+  },
+  {
+    "role": "Vice President",
+    "name": "[Name]",
+    "bio": "[Program · year]. [One line.]",
+    "photo": ""
+  },
+  {
+    "role": "Treasurer",
+    "name": "[Name]",
+    "bio": "[Program · year]. [One line.]",
+    "photo": ""
+  },
+  {
+    "role": "Secretary",
+    "name": "[Name]",
+    "bio": "[Program · year]. [One line.]",
+    "photo": ""
+  },
+  {
+    "role": "Outreach Chair",
+    "name": "[Name]",
+    "bio": "[Program · year]. [One line.]",
+    "photo": ""
+  },
+  {
+    "role": "Summit Chair",
+    "name": "[Name]",
+    "bio": "[Program · year]. [One line.]",
+    "photo": ""
+  },
+  {
+    "role": "Social Media Chair",
+    "name": "[Name]",
+    "bio": "[Program · year]. [One line.]",
+    "photo": ""
+  },
+  {
+    "role": "Faculty Advisor",
+    "name": "[Name]",
+    "bio": "[Title, CREOL.]",
+    "photo": ""
+  }
+]

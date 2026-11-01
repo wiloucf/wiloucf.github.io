@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Women in Lasers &amp; Optics</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: night-sky ground, gold hairline orbits, a gold→magenta→plum "beam" ribbon as the one recurring flourish; hash-routed pages under a sticky nav. */
+:root{
+  --ink:#07060a; --ink-2:#100d16; --ink-3:#1a1522;
+  --line:#3a2f2a;
+  --gold:#e2b04a; --gold-hi:#f4d68a;
+  --magenta:#c24f88; --plum:#5e1e52; --indigo:#2b2558;
+  --text:#efe9e1; --muted:#a79fae;
+  --beam:linear-gradient(100deg,var(--gold-hi) 0%,var(--gold) 22%,var(--magenta) 58%,var(--plum) 82%,var(--indigo) 100%);
+  --f-display:"Josefin Sans","Avenir Next","Century Gothic",system-ui,sans-serif;
+  --f-body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font:400 1rem/1.65 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background-image:radial-gradient(1px 1px at 12% 18%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 78% 9%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 64% 32%,#f4d68a99 50%,transparent 51%),radial-gradient(1px 1px at 33% 62%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 90% 55%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 6% 84%,#fff4 50%,transparent 51%);
+  background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+a{color:var(--gold-hi)}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1120px;margin:0 auto}
+img{max-width:100%;display:block}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--ink) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 calc(-1*max(16px,env(safe-area-inset-right,0px))) 0 calc(-1*max(16px,env(safe-area-inset-left,0px)))}
+.nav-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);margin-right:auto}
+.brand img{width:40px;height:40px;object-fit:cover;border-radius:50%}
+.brand b{font:700 1.05rem/1 var(--f-display);letter-spacing:.14em;color:var(--gold-hi)}
+.brand span{display:block;font:400 .68rem/1.2 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+nav.links{display:flex;gap:4px;flex-wrap:wrap}
+nav.links a{font:600 .8rem/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:10px 12px;border-radius:999px;transition:color .2s,background .2s}
+nav.links a:hover{color:var(--text)}
+nav.links a[aria-current="page"]{color:var(--ink);background:var(--gold)}
+nav.links a.summit-link{border:1px solid var(--gold);color:var(--gold-hi)}
+nav.links a.summit-link[aria-current="page"]{color:var(--ink)}
+@media (max-width:760px){nav.links{width:100%;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}nav.links a{white-space:nowrap}}
+
+/* type */
+.eyebrow{font:500 .74rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+h1{font-weight:300;font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.02;letter-spacing:.02em;text-transform:uppercase}
+h1 em{font-style:normal;font-weight:700;background:var(--beam);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-weight:300;font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.1;text-transform:uppercase;letter-spacing:.04em}
+h2 strong{font-weight:700;color:var(--gold-hi)}
+h3{font-weight:600;font-size:1.15rem;letter-spacing:.04em}
+p{margin:0}
+.lede{font-size:1.15rem;color:var(--muted);max-width:60ch}
+.prose{max-width:66ch;display:grid;gap:1em;color:#d9d2cc}
+
+/* structure */
+section{padding-block:clamp(48px,8vw,96px)}
+.page{display:none}
+.page.active{display:block;animation:rise .5s ease both}
+@keyframes rise{from{opacity:.0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.page.active{animation:none}html{scroll-behavior:auto}}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px 32px;flex-wrap:wrap;margin-bottom:32px}
+.sec-head > div{display:grid;gap:10px}
+.beam{height:3px;background:var(--beam);border-radius:3px;width:min(220px,40%)}
+hr.rule{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--line) 15%,var(--line) 85%,transparent);margin:0}
+
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 .82rem/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:15px 22px;border-radius:999px;border:1px solid var(--gold);color:var(--gold-hi);background:transparent;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:color-mix(in srgb,var(--gold) 14%,transparent)}
+.btn.solid{background:var(--gold);color:var(--ink)}
+.btn.solid:hover{background:var(--gold-hi)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,5vw,64px);align-items:center;padding-block:clamp(40px,7vw,88px) clamp(32px,5vw,64px)}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.hero-copy .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.hero-art{position:relative;aspect-ratio:1;max-width:100%}
+.hero-art .orbit{position:absolute;inset:0;border-radius:50%;border:1px solid color-mix(in srgb,var(--gold) 55%,transparent)}
+.hero-art .orbit.o2{inset:9%;border-color:color-mix(in srgb,var(--magenta) 40%,transparent);border-style:dashed;animation:spin 80s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.hero-art .orbit.o2{animation:none}}
+.hero-art .photo{position:absolute;inset:16%;border-radius:50%;overflow:hidden}
+.hero-art .tag{position:absolute;font:500 .7rem/1 var(--f-mono);color:var(--gold);letter-spacing:.08em;background:var(--ink);padding:4px 6px}
+.hero-art .tag.t1{top:6%;right:6%}.hero-art .tag.t2{bottom:8%;left:2%}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.hero-art{max-width:360px;justify-self:center;width:100%}}
+
+/* photo placeholder */
+.ph{position:relative;width:100%;height:100%;min-height:100%;background:
+   radial-gradient(120% 90% at 20% 10%,color-mix(in srgb,var(--magenta) 35%,transparent),transparent 60%),
+   radial-gradient(120% 90% at 90% 100%,color-mix(in srgb,var(--gold) 28%,transparent),transparent 55%),
+   linear-gradient(160deg,var(--plum),var(--indigo) 70%,var(--ink-2));
+   display:flex;align-items:flex-end;padding:14px;overflow:hidden}
+.ph::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 22px,#ffffff08 22px 23px)}
+.ph span{position:relative;z-index:1;font:500 .7rem/1.3 var(--f-mono);letter-spacing:.06em;color:#f6efe6cc;text-transform:uppercase}
+
+/* about strip */
+.about-strip{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(24px,5vw,64px);align-items:start}
+@media (max-width:760px){.about-strip{grid-template-columns:1fr}}
+.pillars{display:grid;gap:0;border-top:1px solid var(--line)}
+.pillars div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.pillars dt{font:500 .72rem/1.6 var(--f-mono);color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+.pillars dd{margin:0;color:#d9d2cc}
+
+/* events */
+.events{display:grid;gap:0;border-top:1px solid var(--line)}
+.event{display:grid;grid-template-columns:92px 1fr auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.date{display:grid;justify-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 6px;background:var(--ink-2)}
+.date .m{font:600 .7rem/1 var(--f-display);letter-spacing:.18em;color:var(--gold)}
+.date .d{font:300 2rem/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.event .meta{font:400 .8rem/1.4 var(--f-mono);color:var(--muted);margin-top:4px}
+.event p.desc{color:#cfc7cf;font-size:.95rem;margin-top:6px;max-width:62ch}
+.chip{font:500 .68rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.social{border-color:color-mix(in srgb,var(--magenta) 60%,transparent);color:#e7a2c6}
+.chip.pro{border-color:color-mix(in srgb,var(--gold) 60%,transparent);color:var(--gold-hi)}
+.chip.out{border-color:#6f6ac0;color:#b8b4f0}
+@media (max-width:620px){.event{grid-template-columns:72px 1fr}.event .chip{grid-column:2;justify-self:start}}
+
+/* photo strip on home */
+.strip{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:180px 180px;gap:12px}
+.strip > *{border-radius:14px;overflow:hidden}
+.strip > :first-child{grid-row:span 2}
+@media (max-width:620px){.strip{grid-template-columns:1fr 1fr;grid-template-rows:200px 140px 140px}.strip > :first-child{grid-column:span 2;grid-row:auto}}
+
+/* gallery */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font:600 .74rem/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.filters button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-hi)}
+.grid{columns:3 260px;column-gap:12px}
+.grid figure{margin:0 0 12px;break-inside:avoid;border-radius:12px;overflow:hidden;background:var(--ink-2);border:1px solid var(--line)}
+.grid figure .ph{min-height:0}
+.grid figcaption{padding:12px 14px;display:flex;justify-content:space-between;gap:12px;font-size:.88rem}
+.grid figcaption small{font:400 .72rem/1.5 var(--f-mono);color:var(--muted);white-space:nowrap}
+.note{font:400 .8rem/1.5 var(--f-mono);color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:12px 14px;max-width:70ch}
+
+/* about page */
+.timeline{position:relative;display:grid;gap:28px;padding-left:28px;max-width:760px}
+.timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--beam);border-radius:2px}
+.timeline li{list-style:none;position:relative;display:grid;gap:4px}
+.timeline li::before{content:"";position:absolute;left:-28px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--gold)}
+.timeline .yr{font:500 .78rem/1 var(--f-mono);color:var(--gold);letter-spacing:.08em}
+.timeline{margin:0}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:28px 20px}
+.member{display:grid;gap:12px}
+.member .avatar{aspect-ratio:1;border-radius:50%;overflow:hidden;border:1px solid var(--gold);padding:5px;max-width:100%}
+.member .avatar .ph{border-radius:50%;align-items:center;justify-content:center}
+.member .role{font:500 .72rem/1.2 var(--f-mono);color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
+.member .name{font:600 1.1rem/1.2 var(--f-display);letter-spacing:.03em}
+.member .bio{font-size:.88rem;color:var(--muted)}
+
+/* summit */
+.summit-hero{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:
+  radial-gradient(80% 120% at 100% 0%,color-mix(in srgb,var(--magenta) 30%,transparent),transparent 60%),
+  radial-gradient(70% 100% at 0% 100%,color-mix(in srgb,var(--gold) 18%,transparent),transparent 60%),var(--ink-2);
+  padding:clamp(28px,5vw,56px);display:grid;gap:22px}
+.summit-hero .big{font:300 clamp(3rem,10vw,7rem)/.9 var(--f-display);letter-spacing:.02em;text-transform:uppercase}
+.summit-hero .big b{font-weight:700;background:var(--beam);-webkit-background-clip:text;background-clip:text;color:transparent}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:16px 16px 16px 0;display:grid;gap:4px}
+.facts div + div{padding-left:16px;border-left:1px solid var(--line)}
+.facts dt{font:500 .7rem/1 var(--f-mono);letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+.facts dd{margin:0;font:600 1.05rem/1.3 var(--f-display)}
+@media (max-width:720px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){padding-left:0;border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+.countdown{display:flex;gap:18px;font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.countdown div{display:grid}
+.countdown b{font:300 2.2rem/1 var(--f-display)}
+.countdown span{font:500 .66rem/1.4 var(--f-mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+
+.schedule{width:100%;border-collapse:collapse;min-width:520px}
+.schedule th,.schedule td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.schedule th{font:500 .7rem/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.schedule td:first-child{font:500 .85rem/1.4 var(--f-mono);color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto}
+#reg-external{display:grid;gap:16px;background:var(--ink-2);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,32px)}
+#reg-external[hidden]{display:none}
+.strip img,.hero-art .photo img,.member .avatar img{width:100%;height:100%;object-fit:cover}
+.member .avatar img{border-radius:50%}
+.hero-art .photo{background:#000}
+.hero-art .photo img.hero-logo{object-fit:contain;transform:scale(1.04)}
+.grid figure img{width:100%;height:auto}
+.empty{color:var(--muted);padding:20px 0;border-bottom:1px solid var(--line)}
+.free{display:grid;gap:16px}
+.free-big{font:700 clamp(2.6rem,6vw,3.6rem)/1 var(--f-display);text-transform:uppercase;letter-spacing:.03em;color:var(--gold-hi)}
+.free-big span{font-weight:300;color:var(--text)}
+.schedule{min-width:0}
+.schedule tr.talk td:last-child{font-weight:600}
+.schedule tr.brk td{color:var(--muted)}
+.theme{font:600 .9rem/1.2 var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.theme span{color:var(--gold-hi)}
+.pillars.topics div{grid-template-columns:120px 1fr}
+@media (max-width:420px){.pillars div{grid-template-columns:1fr;gap:4px}}
+.days{display:flex;gap:8px;margin-bottom:12px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,56px);align-items:start}
+.two > *{min-width:0}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+
+.tiers{display:grid;gap:0;border-top:1px solid var(--line)}
+.tier{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.tier b{font:600 1rem/1.3 var(--f-display);letter-spacing:.03em}
+.tier small{display:block;color:var(--muted);font-size:.85rem}
+.tier .price{font:300 1.6rem/1 var(--f-display);color:var(--gold-hi);font-variant-numeric:tabular-nums}
+
+form.reg{display:grid;gap:16px;background:var(--ink-2);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,32px)}
+form.reg .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:520px){form.reg .row{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font:600 .74rem/1.2 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+input,select,textarea{font:400 1rem/1.4 var(--f-body);color:var(--text);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:8px}
+legend{font:600 .74rem/1.2 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.check{display:flex;align-items:center;gap:10px;font:400 .95rem/1.3 var(--f-body);letter-spacing:0;text-transform:none;color:var(--text)}
+.check input{width:18px;height:18px;accent-color:var(--gold)}
+.ok{border:1px solid var(--gold);border-radius:12px;padding:16px;color:var(--gold-hi)}
+
+/* outreach */
+.programs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.program{padding:28px 24px 28px 0;display:grid;gap:12px;align-content:start}
+.program + .program{padding-left:24px;border-left:1px solid var(--line)}
+.program .nm{font:500 .72rem/1 var(--f-mono);color:var(--gold);letter-spacing:.08em}
+@media (max-width:820px){.programs{grid-template-columns:1fr}.program + .program{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+.spectrum{height:10px;border-radius:5px;background:linear-gradient(90deg,#7a2fb0,#3b49e0,#1aa6d8,#2cbf64,#e8e03a,#f29a2c,#e2302f);opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.stats div{display:grid;gap:4px}
+.stats b{font:300 clamp(2.2rem,5vw,3.4rem)/1 var(--f-display);color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.stats span{color:var(--muted);font-size:.9rem}
+@media (max-width:520px){.stats{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding-block:40px 48px;margin-top:24px}
+footer .wrap{display:flex;gap:24px 48px;flex-wrap:wrap;justify-content:space-between;align-items:start}
+footer p{color:var(--muted);font-size:.88rem}
+footer .copy{display:flex;align-items:center;gap:8px;font:400 .85rem/1 var(--f-mono)}
+footer button{font:600 .7rem/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--gold-hi);border:1px solid var(--line);border-radius:999px;padding:8px 10px;cursor:pointer}
+</style>
+</head>
+<body>
+
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#home" aria-label="WiLO home">
+      <img src="images/logo.webp" alt="">
+      <div><b>WiLO</b><span>UCF · CREOL</span></div>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#home">Home</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#summit" class="summit-link">2027 Summit</a>
+      <a href="#outreach">Outreach</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ HOME ============ -->
+<div class="page" id="p-home">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Student organization · University of Central Florida</div>
+      <h1>Women in <em>Lasers&nbsp;&amp;&nbsp;Optics</em></h1>
+      <p class="lede">WiLO is a student organization dedicated to empowering and platforming women and other underrepresented groups in optics through professional development seminars, technical workshops, and community events. Every March we celebrate International Women’s Day with the WiLO Summit.</p>
+      <div class="actions">
+        <a class="btn solid" href="#summit">2027 Summit →</a>
+        <a class="btn" href="#about">Meet the board</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="orbit"></div><div class="orbit o2"></div>
+      <div class="photo" id="hero-photo"><img class="hero-logo" src="images/logo.webp" alt="Women in Lasers &amp; Optics logo"></div>
+      <div class="tag t1">λ = 532 nm</div><div class="tag t2">CREOL · Orlando, FL</div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="sec-head">
+      <div><span class="eyebrow">What's coming up</span><h2>Upcoming <strong>events</strong></h2><div class="beam"></div></div>
+      <p class="lede" style="font-size:1rem">Members get event reminders through the mailing list.</p>
+    </div>
+    <div class="events" id="home-events"></div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="about-strip">
+      <div style="display:grid;gap:14px">
+        <span class="eyebrow">About us</span>
+        <h2>Who <strong>we are</strong></h2>
+        <div class="beam"></div>
+      </div>
+      <div style="display:grid;gap:24px">
+        <p class="prose">Women in Lasers &amp; Optics is a student organization dedicated to empowering and platforming women and other underrepresented groups in optics through professional development seminars, technical workshops, and community events. Our members span undergraduates, graduate students, postdocs and faculty across UCF, and our events are open to everyone who supports that mission.</p>
+        <dl class="pillars">
+          <div><dt>Connect</dt><dd>Community events, coffee chats and mentoring across research groups.</dd></div>
+          <div><dt>Develop</dt><dd>Professional development seminars and technical workshops.</dd></div>
+          <div><dt>Inspire</dt><dd>Hands-on optics demos for K–12 classrooms and community events.</dd></div>
+        </dl>
+        <div><a class="btn" href="#about">Our history &amp; board →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-head">
+      <div><span class="eyebrow">Recent moments</span><h2>From the <strong>gallery</strong></h2><div class="beam"></div></div>
+      <a class="btn" href="#gallery">View all photos →</a>
+    </div>
+    <div class="strip" id="strip"></div>
+  </section>
+</div>
+
+<!-- ============ GALLERY ============ -->
+<div class="page" id="p-gallery">
+  <section>
+    <div class="sec-head">
+      <div><span class="eyebrow">Gallery</span><h2>Moments from <strong>our events</strong></h2><div class="beam"></div></div>
+      <div class="filters" role="group" aria-label="Filter photos" id="filters"></div>
+    </div>
+    <div class="grid" id="gallery-grid"></div>
+    
+  </section>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div class="page" id="p-about">
+  <section>
+    <div class="about-strip">
+      <div style="display:grid;gap:14px">
+        <span class="eyebrow">About WiLO</span>
+        <h2>Our <strong>mission</strong></h2>
+        <div class="beam"></div>
+      </div>
+      <div class="prose">
+        <p>Women in Lasers &amp; Optics is a registered student organization at the University of Central Florida, based at CREOL, The College of Optics and Photonics. We are dedicated to empowering and platforming women and other underrepresented groups in optics through professional development seminars, technical workshops, and community events.</p>
+        <p>Membership is open to every UCF student, postdoc and staff member who shares that goal. You don't need to be in an optics program to join.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="sec-head"><div><span class="eyebrow">History</span><h2>How we <strong>got here</strong></h2><div class="beam"></div></div></div>
+    <ol class="timeline">
+      <li><span class="yr">Founded · [year]</span><h3>WiLO is founded</h3><p class="prose">[Founding story: who started the club, and why.]</p></li>
+      <li><span class="yr">[year]</span><h3>First outreach program</h3><p class="prose">[First school or community partnership.]</p></li>
+      <li><span class="yr">[year]</span><h3>The first WiLO Summit</h3><p class="prose">[How the annual conference started.]</p></li>
+      <li><span class="yr">2026–27</span><h3>Today</h3><p class="prose">[Current membership, chapter affiliations (e.g. Optica, SPIE) and goals for the year.]</p></li>
+    </ol>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="sec-head">
+      <div><span class="eyebrow">2026–2027</span><h2>Executive <strong>board</strong></h2><div class="beam"></div></div>
+    </div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="two">
+      <div style="display:grid;gap:14px"><span class="eyebrow">Get involved</span><h2>Join <strong>WiLO</strong></h2><div class="beam"></div></div>
+      <div class="prose">
+        <p>Come to any event to meet us, or email the board to join the mailing list. General body meetings happen once a month during the fall and spring semesters.</p>
+        <p class="copy" style="font-family:var(--f-mono);color:var(--gold-hi)"><span class="js-email">wilo@ucf.edu</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SUMMIT ============ -->
+<div class="page" id="p-summit">
+  <section>
+    <div class="summit-hero">
+      <span class="eyebrow">Annual summit · Celebrating International Women’s Day</span>
+      <div class="big">WiLO <b>Summit</b><br>2027</div>
+      <p class="theme">Theme · <span>Breaking the Mold</span></p>
+      <p class="lede">A one-day event highlighting the contributions of women in optics. Our biggest event of the year, open to attendees at every academic and career stage.</p>
+      <dl class="facts">
+        <div><dt>Date</dt><dd id="s-date">Friday, March 5, 2027</dd></div>
+        <div><dt>Time</dt><dd id="s-hours">10:00 am – 5:30 pm</dd></div>
+        <div><dt>Location</dt><dd id="s-loc">CREOL 102/103</dd></div>
+        <div><dt>Cost</dt><dd>Free · register for lunch</dd></div>
+      </dl>
+      <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+        <div class="countdown" id="countdown" aria-live="polite"></div>
+        <a class="btn solid" href="#register" data-scroll="register">Register →</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="two">
+      <div style="display:grid;gap:18px">
+        <span class="eyebrow">About the Summit</span>
+        <h2>Breaking <strong>the mold</strong></h2>
+        <div class="beam"></div>
+        <div class="prose">
+          <p>This year’s theme, Breaking the Mold, puts the spotlight on the different journeys and passions that led each speaker to success.</p>
+          <p>Talks mix technical and professional topics in a roughly 60/40 split. The point of that split is to remind each other that we are more than our technical work, and that key parts of success happen outside the lab.</p>
+          <p>The day opens with a coffee chat, runs through six talks and lunch, and wraps up with a discussion-focused Q&amp;A panel.</p>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <span class="eyebrow">Professional focus topics</span>
+        <dl class="pillars topics">
+          <div><dt>Life</dt><dd>Working with life: family, job loss, relocation, the two-body problem</dd></div>
+          <div><dt>Mentorship</dt><dd>Finding and developing mentorship relationships</dd></div>
+          <div><dt>Advancement</dt><dd>Negotiation tactics as a woman in STEM</dd></div>
+          <div><dt>Transitions</dt><dd>Moving from academia to industry</dd></div>
+          <div><dt>Network</dt><dd>Making and maintaining a network to thrive in your field</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-head"><div><span class="eyebrow" id="s-prog">Friday, March 5 · CREOL 102/103</span><h2>Program</h2><div class="beam"></div></div></div>
+    <div class="tablewrap">
+      <table class="schedule">
+        <thead><tr><th>Time</th><th>Session</th></tr></thead>
+        <tbody id="schedule"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section style="padding-top:0" id="register">
+    <div class="two">
+      <div style="display:grid;gap:18px">
+        <span class="eyebrow">Registration</span>
+        <h2>Register <strong>for free</strong></h2>
+        <div class="beam"></div>
+        <div class="free">
+          <p class="free-big">Free <span>to attend</span></p>
+          <p class="prose">The Summit is open to everyone at no cost. Registering gets you two extras:</p>
+          <dl class="pillars">
+            <div><dt>Lunch</dt><dd>Provided for registered attendees only.</dd></div>
+            <div><dt>Lanyard</dt><dd>A personalized name lanyard, waiting for you at check-in.</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div id="reg-external" class="reg" hidden>
+        <h3>Registration is open</h3>
+        <p class="prose">Fill out our registration form to reserve lunch and your personalized lanyard.</p>
+        <a class="btn solid" id="reg-link" href="#" target="_blank" rel="noopener" style="justify-self:start">Open registration form →</a>
+      </div>
+      <form class="reg" id="reg-form" novalidate>
+        <div class="row">
+          <label for="r-first">First name<input id="r-first" required autocomplete="given-name"></label>
+          <label for="r-last">Last name<input id="r-last" required autocomplete="family-name"></label>
+        </div>
+        <label for="r-lanyard">Name for your lanyard (if different)<input id="r-lanyard" placeholder="e.g. Dr. Jane Doe"></label>
+        <label for="r-email">Email<input id="r-email" type="email" required autocomplete="email"></label>
+        <div class="row">
+          <label for="r-aff">Institution / company<input id="r-aff" required></label>
+          <label for="r-type">Attendee type
+            <select id="r-type" required>
+              <option value="">Choose one</option>
+              <option>Undergraduate student</option>
+              <option>Graduate student / postdoc</option>
+              <option>Faculty</option>
+              <option>Industry</option>
+            </select>
+          </label>
+        </div>
+        <fieldset>
+          <legend>I plan to attend</legend>
+          <label class="check" for="r-coffee"><input type="checkbox" id="r-coffee"> Morning coffee chat</label>
+          <label class="check" for="r-lunch"><input type="checkbox" id="r-lunch" checked> Lunch</label>
+          <label class="check" for="r-panel"><input type="checkbox" id="r-panel"> Submitting a question for the panel</label>
+        </fieldset>
+        <label for="r-diet">Dietary needs (optional)<textarea id="r-diet" rows="2"></textarea></label>
+        <button class="btn solid" type="submit" style="justify-self:start">Submit registration</button>
+        <p id="reg-msg" class="note" hidden></p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ============ OUTREACH ============ -->
+<div class="page" id="p-outreach">
+  <section>
+    <div class="about-strip">
+      <div style="display:grid;gap:14px">
+        <span class="eyebrow">Outreach</span>
+        <h2>Sharing the <strong>light</strong></h2>
+        <div class="beam"></div>
+      </div>
+      <div style="display:grid;gap:22px">
+        <p class="prose">WiLO members bring hands-on optics into classrooms, libraries and science nights across Central Florida. Our goal is simple: let students see a laser up close, split white light into a rainbow, and meet women who do this for a living.</p>
+        <div class="spectrum" aria-hidden="true"></div>
+        <div style="display:flex;justify-content:space-between;font:400 .72rem/1 var(--f-mono);color:var(--muted)"><span>400 nm</span><span>visible</span><span>700 nm</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="programs">
+      <div class="program"><span class="nm">Program · Classrooms</span><h3>K–12 school visits</h3><p class="prose">Volunteers lead 45-minute demo sessions: total internal reflection in a water stream, diffraction-grating glasses, and polarization with sunglasses and an LCD screen.</p></div>
+      <div class="program"><span class="nm">Program · Community</span><h3>Science nights &amp; festivals</h3><p class="prose">A WiLO table at community STEM events, with take-home spectroscopes and laser-maze challenges for all ages.</p></div>
+      <div class="program"><span class="nm">Program · On campus</span><h3>CREOL lab tours</h3><p class="prose">Guided tours for visiting middle and high school groups, hosted by graduate students in their own research labs.</p></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-head"><div><span class="eyebrow">Impact this year</span><h2>By the <strong>numbers</strong></h2><div class="beam"></div></div></div>
+    <div class="stats">
+      <div><b>[ # ]</b><span>students reached</span></div>
+      <div><b>[ # ]</b><span>outreach events</span></div>
+      <div><b>[ # ]</b><span>volunteer hours</span></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="two">
+      <div style="display:grid;gap:14px"><span class="eyebrow">Get in touch</span><h2>Request a <strong>visit</strong></h2><div class="beam"></div></div>
+      <div class="prose">
+        <p>Teachers and event organizers in the Orlando area can request a WiLO demo. Tell us your grade level, group size and preferred dates, and we'll match you with volunteers.</p>
+        <p>Members who want to volunteer can sign up at any general body meeting. No outreach experience needed; we train you on every demo.</p>
+        <p style="font-family:var(--f-mono);color:var(--gold-hi)"><span class="js-email">wilo@ucf.edu</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:grid;gap:8px;max-width:44ch">
+      <div class="brand" style="margin:0"><img src="images/logo.webp" alt="" style="width:36px;height:36px;object-fit:cover;border-radius:50%"><div><b>WiLO</b><span>Women in Lasers &amp; Optics</span></div></div>
+      <p>A registered student organization at the University of Central Florida. CREOL, The College of Optics and Photonics, Orlando, FL.</p>
+    </div>
+    <div style="display:grid;gap:10px">
+      <span class="eyebrow">Contact</span>
+      <div class="copy"><span id="email-addr" class="js-email">wilo@ucf.edu</span><button type="button" id="copy-email">Copy</button></div>
+      <p id="socials"></p>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>

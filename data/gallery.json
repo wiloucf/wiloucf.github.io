@@ -1,0 +1,58 @@
+[
+  {
+    "image": "",
+    "caption": "Fall welcome social",
+    "semester": "Fall 2026",
+    "category": "Social",
+    "featured": true
+  },
+  {
+    "image": "",
+    "caption": "Summit keynote",
+    "semester": "Spring 2026",
+    "category": "Summit",
+    "featured": true
+  },
+  {
+    "image": "",
+    "caption": "Diffraction demo at a middle school",
+    "semester": "Spring 2026",
+    "category": "Outreach",
+    "featured": true
+  },
+  {
+    "image": "",
+    "caption": "Industry career panel",
+    "semester": "Fall 2026",
+    "category": "Professional",
+    "featured": true
+  },
+  {
+    "image": "",
+    "caption": "Poster session",
+    "semester": "Spring 2026",
+    "category": "Summit",
+    "featured": true
+  },
+  {
+    "image": "",
+    "caption": "Laser maze at science night",
+    "semester": "Fall 2025",
+    "category": "Outreach",
+    "featured": false
+  },
+  {
+    "image": "",
+    "caption": "End-of-year board photo",
+    "semester": "Spring 2026",
+    "category": "Social",
+    "featured": false
+  },
+  {
+    "image": "",
+    "caption": "Lab tour for visiting students",
+    "semester": "Fall 2025",
+    "category": "Outreach",
+    "featured": false
+  }
+]
