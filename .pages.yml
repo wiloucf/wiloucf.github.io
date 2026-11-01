@@ -1,0 +1,182 @@
+# Pages CMS configuration for wiloucf.org
+# Defines the editing forms officers see at app.pagescms.org.
+# Only the webmaster should change this file.
+
+media:
+  - name: gallery
+    label: Gallery photos
+    input: images/gallery
+    output: /images/gallery
+    extensions: [jpg, jpeg, png, webp]
+  - name: board
+    label: Board headshots
+    input: images/board
+    output: /images/board
+    extensions: [jpg, jpeg, png, webp]
+  - name: site
+    label: Site photos
+    input: images/site
+    output: /images/site
+    extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: events
+    label: Events
+    type: file
+    path: data/events.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        label: Event name
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+        description: Events disappear from the home page automatically the day after this date.
+        options:
+          format: yyyy-MM-dd
+      - name: time
+        label: Time
+        type: string
+        description: "Written as you want it shown, e.g. 5:30–7:00 pm"
+      - name: location
+        label: Location
+        type: string
+        description: "e.g. CREOL 102"
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values: [Social, Professional, Outreach, Summit]
+      - name: description
+        label: Short description
+        type: text
+        description: One or two sentences.
+
+  - name: gallery
+    label: Gallery
+    type: file
+    path: data/gallery.json
+    format: json
+    list: true
+    fields:
+      - name: image
+        label: Photo
+        type: image
+        description: "Landscape or portrait both work. Keep files under 1 MB (see the officer guide)."
+        options:
+          media: gallery
+      - name: caption
+        label: Caption
+        type: string
+        required: true
+      - name: semester
+        label: Semester
+        type: string
+        description: "e.g. Spring 2027"
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values: [Social, Professional, Summit, Outreach]
+      - name: featured
+        label: Show on home page
+        type: boolean
+        description: The home page shows up to 5 photos with this switched on, in list order.
+
+  - name: board
+    label: Executive board
+    type: file
+    path: data/board.json
+    format: json
+    list: true
+    fields:
+      - name: role
+        label: Position
+        type: string
+        required: true
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: bio
+        label: Short bio
+        type: text
+        description: "One line, e.g. 'PhD student, ultrafast optics. Loves rock climbing.'"
+      - name: photo
+        label: Headshot
+        type: image
+        description: Square photos look best.
+        options:
+          media: board
+
+  - name: schedule
+    label: Summit schedule
+    type: file
+    path: data/schedule.json
+    format: json
+    list: true
+    fields:
+      - name: time
+        label: Time
+        type: string
+        required: true
+        description: "e.g. 11:00 am – 12:00 pm"
+      - name: session
+        label: Session
+        type: string
+        required: true
+        description: "e.g. Keynote 1 — Dr. Jane Doe, Lockheed Martin"
+      - name: kind
+        label: Type
+        type: select
+        options:
+          values: [Talk, Break, Other]
+
+  - name: settings
+    label: Site settings
+    type: file
+    path: data/settings.json
+    format: json
+    fields:
+      - name: contact_email
+        label: Contact email
+        type: string
+        required: true
+      - name: instagram_url
+        label: Instagram link
+        type: string
+        description: Full link, starting with https://
+      - name: linkedin_url
+        label: LinkedIn link
+        type: string
+        description: Full link, starting with https://
+      - name: hero_image
+        label: Home page feature photo
+        type: image
+        description: The round photo at the top of the home page.
+        options:
+          media: site
+      - name: summit_date
+        label: Summit date and start time
+        type: date
+        description: Drives the date shown on the Summit page and the countdown.
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm"
+      - name: summit_hours
+        label: Summit hours (as displayed)
+        type: string
+        description: "e.g. 10:00 am – 5:30 pm"
+      - name: summit_location
+        label: Summit location
+        type: string
+      - name: registration_link
+        label: Registration form link
+        type: string
+        description: Paste the Google Form (or similar) link here. When filled in, the Summit page shows a Register button that opens it.
