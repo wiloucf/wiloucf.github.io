@@ -144,6 +144,26 @@ content:
     path: data/settings.json
     format: json
     fields:
+      - name: show_gallery
+        label: "Show the Gallery page"
+        type: boolean
+        default: true
+        description: Switch off to hide the page and every link to it. Its content is kept, so switching it back on restores it.
+      - name: show_about
+        label: "Show the About page"
+        type: boolean
+        default: true
+        description: Switch off to hide the page and every link to it. Its content is kept, so switching it back on restores it.
+      - name: show_summit
+        label: "Show the Summit page"
+        type: boolean
+        default: true
+        description: Switch off to hide the page and every link to it. Its content is kept, so switching it back on restores it.
+      - name: show_outreach
+        label: "Show the Outreach page"
+        type: boolean
+        default: true
+        description: Switch off to hide the page and every link to it. Its content is kept, so switching it back on restores it.
       - name: contact_email
         label: Contact email
         type: string
