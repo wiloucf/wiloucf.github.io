@@ -4,6 +4,7 @@
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const load = name => fetch(`data/${name}.json`, {cache: "no-cache"}).then(r => r.ok ? r.json() : null).catch(() => null);
+const PAGES = ["home","gallery","about","summit","outreach"];
 const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
 const CHIP = {Social:"social", Professional:"pro", Outreach:"out", Summit:"pro"};
 const placeholder = label => `<div class="ph"><span>${esc(label)}</span></div>`;
@@ -79,15 +80,22 @@ function tick(){
 }
 // Pages an officer has switched off in Site settings
 const HIDDEN = new Set();
+let START = "home"; // first page that is switched on; visitors land here
 function applyPageSwitches(st){
   HIDDEN.clear();
-  for (const p of ["gallery","about","summit","outreach"]) if (st["show_" + p] === false) HIDDEN.add(p);
-  // Hide every link to a switched-off page (nav, buttons); "#register" belongs to the summit page
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
+  for (const p of PAGES) if (st["show_" + p] === false) HIDDEN.add(p);
+  if (HIDDEN.size === PAGES.length) HIDDEN.delete("home"); // never hide everything
+  START = PAGES.find(p => !HIDDEN.has(p));
+  // The logo always goes to the landing page
+  document.querySelectorAll("a.brand").forEach(a => a.setAttribute("href", "#" + START));
+  // Hide every other link to a switched-off page (nav, buttons); "#register" belongs to the summit page
+  document.querySelectorAll('a[href^="#"]:not(.brand)').forEach(a => {
     let t = a.getAttribute("href").slice(1);
     if (t === "register") t = "summit";
     a.hidden = HIDDEN.has(t);
   });
+  // With only one page left, the menu has nothing to switch between
+  $("nav.links").hidden = PAGES.length - HIDDEN.size < 2;
   route();
 }
 
@@ -136,7 +144,6 @@ $("#copy-email").addEventListener("click", async e => {
 });
 
 // Hash routing between pages
-const PAGES = ["home","gallery","about","summit","outreach"];
 function show(p, top){
   PAGES.forEach(x => document.getElementById("p-"+x).classList.toggle("active", x === p));
   document.querySelectorAll("nav.links a").forEach(a => {
@@ -147,7 +154,7 @@ function show(p, top){
 function route(){
   const h = location.hash.slice(1);
   if (h === "register" && !HIDDEN.has("summit")){ show("summit"); requestAnimationFrame(() => document.getElementById("register").scrollIntoView()); return; }
-  show(PAGES.includes(h) && !HIDDEN.has(h) ? h : "home", true);
+  show(PAGES.includes(h) && !HIDDEN.has(h) ? h : START, true);
 }
 addEventListener("hashchange", route);
 route();

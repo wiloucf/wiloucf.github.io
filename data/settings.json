@@ -6,9 +6,10 @@
   "summit_date": "2027-03-05T10:00",
   "summit_hours": "10:00 am – 5:30 pm",
   "summit_location": "CREOL 102/103",
-  "registration_link": "",
-  "show_gallery": true,
-  "show_about": true,
+  "registration_link": "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=FS-TuzjvukKR_PPFnV3R8X89Kq0wQXhHrbhLpj5QFtpUNE1INFhJMEtSMTFBNEQzM1lFTzlPNFVWWSQlQCN0PWcu",
+  "show_home": false,
+  "show_gallery": false,
+  "show_about": false,
   "show_summit": true,
-  "show_outreach": true
+  "show_outreach": false
 }
