@@ -177,6 +177,9 @@ hr.rule{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--l
 .schedule th{font:500 .7rem/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 .schedule td:first-child{font:500 .85rem/1.4 var(--f-mono);color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .tablewrap{overflow-x:auto}
+.summit-info{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+@media (max-width:820px){.summit-info{grid-template-columns:1fr}}
+.summit-info .schedule th,.summit-info .schedule td{padding:12px 10px}
 #reg-external{display:grid;gap:16px;background:var(--ink-2);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,32px)}
 #reg-external[hidden]{display:none}
 .strip img,.hero-art .photo img,.member .avatar img{width:100%;height:100%;object-fit:cover}
@@ -236,6 +239,10 @@ footer{border-top:1px solid var(--line);padding-block:40px 48px;margin-top:24px}
 footer .wrap{display:flex;gap:24px 48px;flex-wrap:wrap;justify-content:space-between;align-items:start}
 footer p{color:var(--muted);font-size:.88rem}
 footer .copy{display:flex;align-items:center;gap:8px;font:400 .85rem/1 var(--f-mono)}
+#socials{display:grid;gap:6px;margin:0}
+#socials a.social{font:400 .85rem/1.4 var(--f-mono);color:var(--gold-hi);text-decoration:none}
+#socials a.social span{font:600 .7rem/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+#socials a.social:hover{text-decoration:underline}
 footer button{font:600 .7rem/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--gold-hi);border:1px solid var(--line);border-radius:999px;padding:8px 10px;cursor:pointer}
 </style>
 </head>
@@ -392,14 +399,14 @@ footer button{font:600 .7rem/1 var(--f-display);letter-spacing:.12em;text-transf
       </dl>
       <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;justify-content:space-between">
         <div class="countdown" id="countdown" aria-live="polite"></div>
-        <a class="btn solid" href="#register" data-scroll="register">Register →</a>
+        <a class="btn solid" id="reg-top" href="" target="_blank" rel="noopener" hidden>Register →</a>
       </div>
     </div>
   </section>
 
   <section style="padding-top:0">
-    <div class="two">
-      <div style="display:grid;gap:18px">
+    <div class="two summit-info">
+      <div style="display:grid;gap:18px;align-content:start">
         <h2><strong>Breaking the mold</strong></h2>
         <div class="beam"></div>
         <div class="prose">
@@ -408,66 +415,15 @@ footer button{font:600 .7rem/1 var(--f-display);letter-spacing:.12em;text-transf
           <p>The summit opens with a coffee chat, runs through six talks and lunch, and wraps up with a discussion-focused Q&amp;A panel.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section style="padding-top:0">
-    <div class="tablewrap">
-      <table class="schedule">
-        <thead><tr><th>Time</th><th>Session</th></tr></thead>
-        <tbody id="schedule"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <section style="padding-top:0" id="register">
-    <div class="two">
-      <div style="display:grid;gap:18px">
-        <h2><strong>Registration</strong></h2>
-        <div class="beam"></div>
-        <div class="free">
-          <p class="free-big">Free <span>to attend</span></p>
-          <p class="prose">The Summit is open to everyone at no cost. Registering gets you two extras:</p>
-          <dl class="pillars">
-            <div><dt>Lunch</dt><dd>Provided for registered attendees only.</dd></div>
-            <div><dt>Lanyard</dt><dd>Personalized name lanyard at check-in.</dd></div>
-          </dl>
+      <div style="display:grid;gap:14px;align-content:start">
+        <span class="eyebrow" id="s-prog">Program · Friday, March 5</span>
+        <div class="tablewrap">
+          <table class="schedule">
+            <thead><tr><th>Time</th><th>Session</th></tr></thead>
+            <tbody id="schedule"></tbody>
+          </table>
         </div>
       </div>
-      <div id="reg-external" class="reg" hidden>
-        <h3>Registration is open</h3>
-        <p class="prose">Fill out our registration form to reserve lunch and your personalized lanyard.</p>
-        <a class="btn solid" id="reg-link" href="#" target="_blank" rel="noopener" style="justify-self:start">Open registration form →</a>
-      </div>
-      <form class="reg" id="reg-form" novalidate>
-        <div class="row">
-          <label for="r-first">First name<input id="r-first" required autocomplete="given-name"></label>
-          <label for="r-last">Last name<input id="r-last" required autocomplete="family-name"></label>
-        </div>
-        <label for="r-lanyard">Name for your lanyard (if different)<input id="r-lanyard" placeholder="e.g. Dr. Jane Doe"></label>
-        <label for="r-email">Email<input id="r-email" type="email" required autocomplete="email"></label>
-        <div class="row">
-          <label for="r-aff">Institution / company<input id="r-aff" required></label>
-          <label for="r-type">Attendee type
-            <select id="r-type" required>
-              <option value="">Choose one</option>
-              <option>Undergraduate student</option>
-              <option>Graduate student / postdoc</option>
-              <option>Faculty</option>
-              <option>Industry</option>
-            </select>
-          </label>
-        </div>
-        <fieldset>
-          <legend>I plan to attend</legend>
-          <label class="check" for="r-coffee"><input type="checkbox" id="r-coffee"> Morning coffee chat</label>
-          <label class="check" for="r-lunch"><input type="checkbox" id="r-lunch" checked> Lunch</label>
-          <label class="check" for="r-panel"><input type="checkbox" id="r-panel"> Submitting a question for the panel</label>
-        </fieldset>
-        <label for="r-diet">Dietary needs (optional)<textarea id="r-diet" rows="2"></textarea></label>
-        <button class="btn solid" type="submit" style="justify-self:start">Submit registration</button>
-        <p id="reg-msg" class="note" hidden></p>
-      </form>
     </div>
   </section>
 </div>

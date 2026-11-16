@@ -8,6 +8,8 @@ const PAGES = ["home","gallery","about","summit","outreach"];
 const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
 const CHIP = {Social:"social", Professional:"pro", Outreach:"out", Summit:"pro"};
 const placeholder = label => `<div class="ph"><span>${esc(label)}</span></div>`;
+// Sets text only if the element exists, so removing a piece of the page never breaks the script
+const setText = (sel, v) => { const el = $(sel); if (el) el.textContent = v; };
 const img = (src, alt) => `<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy">`;
 
 function parseDay(d){ // "2026-11-13" -> local Date at midnight
@@ -73,6 +75,7 @@ let SUMMIT = null, timer = null;
 function tick(){
   if (!SUMMIT) return;
   const ms = SUMMIT - new Date();
+  if (!$("#countdown")) return;
   if (ms <= 0){ $("#countdown").innerHTML = ""; return; }
   const d = Math.floor(ms/864e5), h = Math.floor(ms/36e5)%24, m = Math.floor(ms/6e4)%60;
   $("#countdown").innerHTML = [[d,"days"],[h,"hours"],[m,"minutes"]].map(([v,l]) => `<div><b>${String(v).padStart(2,"0")}</b><span>${l}</span></div>`).join("")
@@ -103,40 +106,33 @@ function applySettings(st){
   st = st || {};
   applyPageSwitches(st);
   if (st.contact_email) document.querySelectorAll(".js-email").forEach(el => el.textContent = st.contact_email);
+  // Social links under the contact email, shown with the account handle (e.g. Instagram @ucfwilo)
+  const handle = u => { const m = String(u).match(/(?:instagram\.com|linkedin\.com\/(?:company|in))\/([^/?#]+)/i); return m ? "@" + m[1] : ""; };
   const soc = [["Instagram", st.instagram_url], ["LinkedIn", st.linkedin_url]].filter(([,u]) => u);
-  $("#socials").innerHTML = soc.map(([n,u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${n}</a>`).join(" · ");
-  if (st.hero_image) $("#hero-photo").innerHTML = img(st.hero_image, "WiLO members");
+  if ($("#socials")) $("#socials").innerHTML = soc.map(([n,u]) =>
+    `<a class="social" href="${esc(u)}" target="_blank" rel="noopener"><span>${n}</span> ${esc(handle(u))}</a>`).join("");
+  if (st.hero_image && $("#hero-photo")) $("#hero-photo").innerHTML = img(st.hero_image, "WiLO members");
   if (st.summit_date){
     const [dp, tp="00:00"] = st.summit_date.split("T");
     const day = parseDay(dp); const [hh,mm] = tp.split(":").map(Number);
     if (day){
       SUMMIT = new Date(day.getFullYear(), day.getMonth(), day.getDate(), hh||0, mm||0);
-      $("#s-date").textContent = day.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
-      $("#s-prog").textContent = `${day.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})} · ${st.summit_location || ""}`;
+      setText("#s-date", day.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}));
+      setText("#s-prog", `Program · ${day.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}`);
     }
   }
-  if (st.summit_hours) $("#s-hours").textContent = st.summit_hours;
-  if (st.summit_location) $("#s-loc").textContent = st.summit_location;
-  if (st.registration_link){
-    $("#reg-link").href = st.registration_link;
-    $("#reg-external").hidden = false;
-    $("#reg-form").hidden = true;
+  if (st.summit_hours) setText("#s-hours", st.summit_hours);
+  if (st.summit_location) setText("#s-loc", st.summit_location);
+  // Register button at the top of the Summit page opens the form; hidden when no link is set
+  const reg = $("#reg-top");
+  if (reg){
+    if (st.registration_link){ reg.href = st.registration_link; reg.hidden = false; }
+    else reg.hidden = true;
   }
   tick(); clearInterval(timer); timer = setInterval(tick, 30000);
 }
 
-// Built-in form is a fallback shown only when no registration link is set.
-$("#reg-form").addEventListener("submit", e => {
-  e.preventDefault();
-  const f = e.target, msg = $("#reg-msg");
-  const bad = [...f.querySelectorAll("[required]")].find(el => !el.value.trim() || (el.type==="email" && !/^\S+@\S+\.\S+$/.test(el.value)));
-  msg.hidden = false;
-  if (bad){ msg.className = "note"; msg.textContent = `Please fill in “${bad.closest("label").childNodes[0].textContent.trim()}”.`; bad.focus(); return; }
-  msg.className = "ok";
-  msg.textContent = "Online registration isn't connected yet. Please email us to register.";
-});
-
-$("#copy-email").addEventListener("click", async e => {
+$("#copy-email")?.addEventListener("click", async e => {
   const t = $("#email-addr").textContent;
   try { await navigator.clipboard.writeText(t); e.target.textContent = "Copied"; }
   catch { const r = document.createRange(); r.selectNodeContents($("#email-addr")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
@@ -153,7 +149,7 @@ function show(p, top){
 }
 function route(){
   const h = location.hash.slice(1);
-  if (h === "register" && !HIDDEN.has("summit")){ show("summit"); requestAnimationFrame(() => document.getElementById("register").scrollIntoView()); return; }
+  if (h === "register" && !HIDDEN.has("summit")){ show("summit", true); return; }
   show(PAGES.includes(h) && !HIDDEN.has(h) ? h : START, true);
 }
 addEventListener("hashchange", route);
